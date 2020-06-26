@@ -27,5 +27,13 @@ export const home = {
     */
    upload(file){
       return request.post('user/import',file)
-   }
+   },
+
+      /**
+    * 导入excel图片
+    * @param {*} file 
+    */
+   upload2(file){
+      return request.post('user/imgimport',file)
+   },
 }

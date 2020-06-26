@@ -12,6 +12,9 @@
           </el-upload>
           <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" size="small"
             @click="exportExcel">导出 </el-button>
+            <el-upload class="upload-demo" action="" :limit="1" :http-request="importExcel2" :show-file-list="false" :file-list="fileList2">
+              <el-button size="small" type="primary" icon="el-icon-upload">导入excel图片</el-button>
+            </el-upload>
         </el-form-item>
       </el-form>
       <el-table v-loading="listLoading" :data="userList" element-loading-text="Loading" border fit highlight-current-row
@@ -64,7 +67,8 @@
           name: '',
         },
         sexOption: ['男', '女'],
-        fileList: []
+        fileList: [],
+        fileList2: []
       }
     },
     methods: {
@@ -110,6 +114,22 @@
             this.fileList = []
             this.$message.success("导入成功")
             this.getList()
+          } else {
+            this.$message.error("导入失败")
+          }
+        }).catch(err =>{
+          console.log(err)
+          this.$message.error("导入失败")
+        })
+      },
+       //导入excel图片
+       importExcel2(param) {
+        const formData = new FormData()
+        formData.append('file', param.file)
+        home.upload2(formData).then(res => {
+          if (res.code == 200) {
+            this.fileList2 = []
+            this.$message.success("导入成功")
           } else {
             this.$message.error("导入失败")
           }
