@@ -1,19 +1,7 @@
-# easypoi-demo
-
 ## Project setup
-```
-npm install
-```
+easypoi demo项目，包含文件导入导出与下载，使用了Springboot+easypoi+mybatis-plus+vue+js-file-download技术
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 项目安装
+npm i axios -S
+npm i element-ui -S
+npm i js-file-download -S
