@@ -64,4 +64,11 @@ export const home = {
    exportWordByTemplate(query) {
       return request.postResponse('user/wordTemplate', query)
    },
+
+   /**
+   * 使用模板导出多页word
+   */
+  exportWordByTemplateMorePage(query) {
+   return request.postResponse('user/wordTemplateMorePage', query)
+},
 }

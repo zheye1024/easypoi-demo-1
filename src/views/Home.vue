@@ -9,21 +9,23 @@
           <el-button type="primary" icon="el-icon-search" size="small" @click="getList">查询 </el-button>
           <el-upload class="upload-demo" action="" :limit="1" :http-request="importExcel" :show-file-list="false"
             :file-list="fileList">
-            <el-button size="small" type="primary" icon="el-icon-upload">导入用户信息</el-button>
+            <el-button size="small" type="warning" icon="el-icon-upload">导入用户信息</el-button>
           </el-upload>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" size="small"
+          <el-button icon="el-icon-download" :loading="downloadLoading" size="small"
             @click="exportExcel">导出用户信息 </el-button>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading2" size="small"
+          <el-button type="info" icon="el-icon-download" :loading="downloadLoading2" size="small"
             @click="exportImgExcel">下载excel图片文件 </el-button>
           <el-upload class="upload-demo" action="" :limit="1" :http-request="importExcel2" :show-file-list="false"
             :file-list="fileList2">
             <el-button size="small" type="primary" icon="el-icon-upload">导入excel图片文件</el-button>
           </el-upload>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading3" size="small"
+          <el-button type="success" icon="el-icon-download" :loading="downloadLoading3" size="small"
             @click="exportExcelByTemplate">使用模板导出excel </el-button>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading4" size="small"
+          <el-button type="danger" icon="el-icon-download" :loading="downloadLoading4" size="small"
             @click="exportWordByTemplate">使用模板导出word </el-button>
-          <el-button type="primary" size="small" @click="previewExcel">excel文件预览 </el-button>
+            <el-button type="info" icon="el-icon-download" :loading="downloadLoading5" size="small"
+            @click="exportWordByTemplateMorePage">使用模板导出多页word </el-button>
+          <el-button type="success" size="small" @click="previewExcel">excel文件预览 </el-button>
         </el-form-item>
       </el-form>
       <el-table v-loading="listLoading" :data="userList" element-loading-text="Loading" border fit highlight-current-row
@@ -49,7 +51,7 @@
       </el-table>
     </div>
     <pagination v-show="pageData.total>0" :pageData="pageData" @pageChange="pageChange"></pagination>
-    <el-dialog title="excel预览" :visible.sync="dialogVisible" width="81%" @close="clear">
+    <el-dialog title="excel预览" :visible.sync="dialogVisible" width="86%" @close="clear">
       <div v-html="excel" />
     </el-dialog>
   </div>
@@ -74,6 +76,7 @@
         downloadLoading2: false,
         downloadLoading3: false,
         downloadLoading4: false,
+        downloadLoading5: false,
         dialogVisible: false,
         excel: '',
         pageData: {
@@ -207,6 +210,19 @@
           fileDownload(res, fileName + '.docx')
         }).finally(() => {
           this.downloadLoading4 = false;
+        });
+      },
+        //使用模板导出多页word
+        exportWordByTemplateMorePage() {
+        this.downloadLoading5 = true
+        const fileName = '个人简历'
+        home.exportWordByTemplateMorePage({
+          fileName: fileName
+        }).then(res => {
+          //使用js下载文件
+          fileDownload(res, fileName + '.docx')
+        }).finally(() => {
+          this.downloadLoading5 = false;
         });
       },
     },
